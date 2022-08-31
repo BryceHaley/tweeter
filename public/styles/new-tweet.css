@@ -1,0 +1,19 @@
+.submit {
+  font-family: 'Bungee', sans-serif;
+  color: white;
+  background-color: #4056A1;
+}
+
+.submit-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+#tweet-text {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  resize: none;
+  border-bottom: 2px solid gray;
+  width: 100%;
+}
