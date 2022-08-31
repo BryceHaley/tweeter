@@ -17,3 +17,7 @@
   border-bottom: 2px solid gray;
   width: 100%;
 }
+
+.negative {
+  color: red;
+}
