@@ -1,0 +1,25 @@
+
+nav {
+  color: #FFFFFF;
+  background-color: #4056A1;
+  padding: 1.5em;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  width: 100%;
+}
+
+#title {
+  font-family: 'Bungee', sans-serif;
+}
+
+.nav-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.red {
+  color: red;
+}
