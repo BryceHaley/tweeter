@@ -1,0 +1,31 @@
+article.tweet {
+  border: 3px solid gray;
+  padding: 1em;
+}
+
+article.tweet header {
+  display: flex;
+  justify-content: space-between;
+}
+
+article.tweet footer {
+  border-top: 3px solid grey;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 5px;
+}
+
+.tweet {
+  margin-top: 1em;
+  
+}
+
+.tweet:hover {
+  box-shadow: 5px 5px gray;
+}
+
+article.tweet footer .footer-icons > i:hover {
+  color: aquamarine;
+  cursor: pointer;
+
+}
