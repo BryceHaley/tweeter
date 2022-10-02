@@ -4,7 +4,8 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-const createTweetElement = function(tweet) {
+
+const createTweetElement = function(tweet, time) {
   let $tweet = `<article class="tweet">
   <header>
     <div>
@@ -15,7 +16,7 @@ const createTweetElement = function(tweet) {
   </header>
   <p>${tweet.content.text}</p>
   <footer>
-   <span class="footer-date">${tweet.created_at}</span>
+   <span class="footer-date">${time}</span>
    <div class="footer-icons">
     <i class="fa-solid fa-flag"></i>
     <i class="fa-solid fa-retweet"></i>
@@ -29,7 +30,8 @@ const createTweetElement = function(tweet) {
 
 const renderTweets = function(tweets) {
   for (let tweetData of tweets) {
-    const $tweet = createTweetElement(tweetData);
+    const time = timeago.format(tweetData.created_at);
+    const $tweet = createTweetElement(tweetData, time);
     //console.log($tweet);
     $(()=>{$('#tweets-container').append($tweet);})
   }
