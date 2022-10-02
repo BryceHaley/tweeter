@@ -56,16 +56,16 @@ const createTweetElement = function(tweet) {
 const renderTweets = function(tweets) {
   for (let tweetData of tweets) {
     const $tweet = createTweetElement(tweetData);
-    console.log($tweet);
+    //console.log($tweet);
     $(()=>{$('#tweets-container').append($tweet);})
   }
 };
 
-
-
-//const $tweet = $(`<article class="tweet">Hello world</article>`);
-
-// Test / driver code (temporary)
-//console.log($tweet); // to see what it looks like
-//$('#tweets-container').append($tweet); // to add it to the page so we can make sure it's got all the right elements,
 renderTweets(tweets);
+
+$(() => { 
+  $( "form" ).submit(function( event ) {
+    event.preventDefault();
+    console.log('form submitted');
+  });
+});
