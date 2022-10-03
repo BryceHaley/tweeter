@@ -14,7 +14,7 @@ const createTweetElement = function(tweet, time) {
     </div>
     <span class="handle">${tweet.user.handle}</span>
   </header>
-  <p>${tweet.content.text}</p>
+  <p>${escapeXSS(tweet.content.text)}</p>
   <footer>
    <span class="footer-date">${time}</span>
    <div class="footer-icons">
@@ -26,6 +26,13 @@ const createTweetElement = function(tweet, time) {
 </article>`;
 
   return $tweet;
+};
+
+//escape tags to avoid XSS attack
+const escapeXSS = function (str) {
+  let div = document.createElement("div");
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
 };
 
 //returns a single html tweet from json object
