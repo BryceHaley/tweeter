@@ -28,25 +28,51 @@ const createTweetElement = function(tweet, time) {
   return $tweet;
 };
 
+//returns a single html tweet from json object
+const parseTweet = function (tweetData) {
+  const time = timeago.format(tweetData.created_at);
+  const $tweet = createTweetElement(tweetData, time);
+  return $tweet;
+};
+
+// renders tweets in html
 const renderTweets = function(tweets) {
-  for (let tweetData of tweets) {
-    const time = timeago.format(tweetData.created_at);
-    const $tweet = createTweetElement(tweetData, time);
-    //console.log($tweet);
+  for (let tweetData of tweets.reverse()) {
+    const $tweet = parseTweet(tweetData);
     $(()=>{$('#tweets-container').append($tweet);})
   }
 };
+//loads and displays tweets
+const showCurrentTweets = function() {
+  $.ajax('/tweets', { method: 'GET'})
+  .then(function(tweets) {
+    renderTweets(tweets);
+  })
+};
+
+
 
 $(() => { 
   $( "form" ).submit(function( event ) {
     event.preventDefault();
-    const data = $( this ).serialize();
-    $.ajax('/tweets', { method: 'POST', data});
+
+      if ($("#tweet-text").val().length > 0 ) {
+        const data = $( this ).serialize();
+        $.ajax('/tweets', { method: 'POST', data})
+        .done(() => { //after successful completion get the data, clear the existing tweets and then show the new tweets. 
+          setTimeout(() => {  //a small set timeout avoids a race condition not dealt with via promise chaining.
+            $.ajax('/tweets', { method: 'GET'})
+            .then(function(tweets) {
+              $("#tweets-container").empty();
+              renderTweets(tweets);
+            }, 200)});
+        });
+      } else {
+        alert('put stuff in tweets');
+      }
+    });
   });
 
   $(() => 
-    $.ajax('/tweets', { method: 'GET'})
-    .then(function(tweets) {
-      renderTweets(tweets);
-    })
-  )});
+    showCurrentTweets()
+  );
