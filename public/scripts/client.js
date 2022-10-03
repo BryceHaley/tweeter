@@ -62,20 +62,28 @@ const showCurrentTweets = function() {
 $(() => { 
   $( "form" ).submit(function( event ) {
     event.preventDefault();
-
+    $("#empty").slideUp("fast");
+    $("#too_long").slideUp("fast");
       if ($("#tweet-text").val().length > 0 ) {
-        const data = $( this ).serialize();
-        $.ajax('/tweets', { method: 'POST', data})
-        .done(() => { //after successful completion get the data, clear the existing tweets and then show the new tweets. 
-          setTimeout(() => {  //a small set timeout avoids a race condition not dealt with via promise chaining.
-            $.ajax('/tweets', { method: 'GET'})
-            .then(function(tweets) {
-              $("#tweets-container").empty();
-              renderTweets(tweets);
-            }, 200)});
-        });
+        if ($("#tweet-text").val().length < 140 ) {
+          //tweet is neither too long or too short ~~goldylocks~~
+          const data = $( this ).serialize();
+          $.ajax('/tweets', { method: 'POST', data})
+          .done(() => { //after successful completion get the data, clear the existing tweets and then show the new tweets. 
+            setTimeout(() => {  //a small set timeout avoids a race condition not dealt with via promise chaining.
+              $.ajax('/tweets', { method: 'GET'})
+              .then(function(tweets) {
+                $("#tweets-container").empty();
+                renderTweets(tweets);
+              }, 200)});
+          });
+        } else {
+          //tweet is too long
+          $("#too_long").slideDown("slow");
+        }
       } else {
-        alert('put stuff in tweets');
+        //tweet is empty
+        $("#empty").slideDown("slow");
       }
     });
   });
