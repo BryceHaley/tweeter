@@ -29,14 +29,14 @@ const createTweetElement = function(tweet, time) {
 };
 
 //escape tags to avoid XSS attack
-const escapeXSS = function (str) {
+const escapeXSS = function(str) {
   let div = document.createElement("div");
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
 };
 
 //returns a single html tweet from json object
-const parseTweet = function (tweetData) {
+const parseTweet = function(tweetData) {
   const time = timeago.format(tweetData.created_at);
   const $tweet = createTweetElement(tweetData, time);
   return $tweet;
@@ -46,48 +46,51 @@ const parseTweet = function (tweetData) {
 const renderTweets = function(tweets) {
   for (let tweetData of tweets.reverse()) {
     const $tweet = parseTweet(tweetData);
-    $(()=>{$('#tweets-container').append($tweet);})
+    $(()=>{
+      $('#tweets-container').append($tweet);
+    });
   }
 };
 //loads and displays tweets
 const showCurrentTweets = function() {
   $.ajax('/tweets', { method: 'GET'})
-  .then(function(tweets) {
-    renderTweets(tweets);
-  })
+    .then(function(tweets) {
+      renderTweets(tweets);
+    });
 };
 
 
 
-$(() => { 
-  $( "form" ).submit(function( event ) {
+$(() => {
+  $("form").submit(function(event) {
     event.preventDefault();
     $("#empty").slideUp("fast");
     $("#too_long").slideUp("fast");
-      if ($("#tweet-text").val().length > 0 ) {
-        if ($("#tweet-text").val().length < 140 ) {
-          //tweet is neither too long or too short ~~goldylocks~~
-          const data = $( this ).serialize();
-          $.ajax('/tweets', { method: 'POST', data})
-          .done(() => { //after successful completion get the data, clear the existing tweets and then show the new tweets. 
+    if ($("#tweet-text").val().length > 0) {
+      if ($("#tweet-text").val().length < 140) {
+        //tweet is neither too long or too short ~~goldylocks~~
+        const data = $(this).serialize();
+        $.ajax('/tweets', { method: 'POST', data})
+          .done(() => { //after successful completion get the data, clear the existing tweets and then show the new tweets.
             setTimeout(() => {  //a small set timeout avoids a race condition not dealt with via promise chaining.
               $.ajax('/tweets', { method: 'GET'})
-              .then(function(tweets) {
-                $("#tweets-container").empty();
-                renderTweets(tweets);
-              }, 200)});
+                .then(function(tweets) {
+                  $("#tweets-container").empty();
+                  renderTweets(tweets);
+                }, 200);
+            });
           });
-        } else {
-          //tweet is too long
-          $("#too_long").slideDown("slow");
-        }
       } else {
-        //tweet is empty
-        $("#empty").slideDown("slow");
+        //tweet is too long
+        $("#too_long").slideDown("slow");
       }
-    });
+    } else {
+      //tweet is empty
+      $("#empty").slideDown("slow");
+    }
   });
+});
 
-  $(() => 
-    showCurrentTweets()
-  );
+$(() =>
+  showCurrentTweets()
+);
