@@ -12,12 +12,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
  
     <!-- App CSS -->
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
     <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
     <link rel="stylesheet" href="/styles/tweet.css" type="text/css" />
     <link rel="stylesheet" href="/styles/oldTweets.css" type="text/css" />
     <link rel="stylesheet" href="/styles/errors.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
     <!-- External JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -38,43 +38,44 @@
         <span class="fa-solid fa-angles-down red"></span>
       </div>
     </nav>
+    <section class = content>
+      <header class="main">
+        <div>
+            <img src="/images/profile-hex.png"> 
+        </div>
+        <br>
+        <div>
+            <h2>BPSH</h2>
+        </div>
+      </header>
 
-    <header class="main">
-      <div>
-          <img src="/images/profile-hex.png"> 
+      <!-- Page-specific (main) content here -->
+      <main class="container">
+        <h1>HEADER</h1>
+        <h2>Sub-HEADER</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet explicabo inventore sapiente eaque, quas temporibus, velit delectus voluptatem minima harum tempora. Nam recusandae sint labore harum cumque, in dolore maxime.</p>
+        <section class="error" id="empty">
+        <p>❗put stuff in tweets❗ </p>
+        </section>
+        <section class="error" id="too_long">
+          <p>❗ no novels❗ </p>
+        </section>
+        
+        <section class="new-tweet">
+          <h2>Compose Tweet</h2>
+          <form>
+            <label for="tweet-text">What are you humming about?</label>
+            <textarea maxlength="200" name="text" id="tweet-text"></textarea>
+            <footer class="submit-footer">
+              <button class="btn submit" type="submit">Tweet</button>
+              <output name="counter" id="counter" for="tweet-text">140</output>
+            </footer>
+          </form>
+        </section>
+  <!-- TWEETS GO HERE -->
+      <div id="tweets-container">
       </div>
-      <br>
-      <div>
-          <h2>BPSH</h2>
-      </div>
-  </header>
-
-    <!-- Page-specific (main) content here -->
-    <main class="container">
-      <h1>HEADER</h1>
-      <h2>Sub-HEADER</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet explicabo inventore sapiente eaque, quas temporibus, velit delectus voluptatem minima harum tempora. Nam recusandae sint labore harum cumque, in dolore maxime.</p>
-      <section class="error" id="empty">
-       <p>❗put stuff in tweets❗ </p>
-      </section>
-      <section class="error" id="too_long">
-        <p>❗ no novels❗ </p>
-       </section>
-      
-      <section class="new-tweet">
-        <h2>Compose Tweet</h2>
-        <form>
-          <label for="tweet-text">What are you humming about?</label>
-          <textarea maxlength="200" name="text" id="tweet-text"></textarea>
-          <footer class="submit-footer">
-            <button class="btn submit" type="submit">Tweet</button>
-            <output name="counter" id="counter" for="tweet-text">140</output>
-          </footer>
-        </form>
-      </section>
-<!-- TWEETS GO HERE -->
-    <div id="tweets-container">
-    </div>
     </main>
+  </section>
   </body>
 </html>
