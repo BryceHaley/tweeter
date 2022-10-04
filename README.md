@@ -2,7 +2,9 @@
 
 Tweeter is a simple, single-page Twitter clone.
 
-This repository is the starter code for the project: Students will fork and clone this repository, then build upon it to practice their HTML, CSS, JS, jQuery and AJAX front-end skills, and their Node, Express back-end skills.
+The back end was provided as starting point. The front end was original work.
+
+Simply right tweets and submit, they'll be sent to the localhost server and render on the screen, try resezing the screen, sending empty or very long tweets, or hovering over buttons to see additional UI features.
 
 ## Getting Started
 
@@ -15,4 +17,11 @@ This repository is the starter code for the project: Students will fork and clon
 ## Dependencies
 
 - Express
+- body-parser
+- chance
 - Node 5.10.x or above
+
+## Screenshots
+!["large width screen"](https://github.com/BryceHaley/tweeter/blob/master/public/images/large-screen-with-error.png?raw=true)
+!["small width screen"](https://github.com/BryceHaley/tweeter/blob/master/public/images/small-screen-with-long-message.png?raw=true)
+
