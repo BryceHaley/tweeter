@@ -42,12 +42,14 @@ const parseTweet = function(tweetData) {
   return $tweet;
 };
 
+//adds new tweet to top of tweet container element
 const prependTweet = function(parsedTweet) {
   $(()=>{
     $('#tweets-container').prepend(parsedTweet);
   });
 };
 
+//adds tweet to bottom of tweet container element
 const appendTweet = function(parsedTweet) {
   $(()=>{
     $('#tweets-container').append(parsedTweet);
@@ -62,6 +64,7 @@ const renderTweets = function(tweets) {
   }
 };
 
+// grabs all the tweets in the DB and returns them
 const getTweets = function() {
   let tweets;
   $.ajax('/tweets', { method: 'GET', async: false})
@@ -77,6 +80,7 @@ const showCurrentTweets = function() {
   renderTweets(tweets);
 };
 
+//inserts the most recent tweet from the db and places it at the top of the tweets container
 const appendHeadTweet = function() {
   const tweet = getTweets().at(-1);
   const $tweet = parseTweet(tweet);
