@@ -42,24 +42,46 @@ const parseTweet = function(tweetData) {
   return $tweet;
 };
 
+const prependTweet = function(parsedTweet) {
+  $(()=>{
+    $('#tweets-container').prepend(parsedTweet);
+  });
+}
+
+const appendTweet = function(parsedTweet) {
+  $(()=>{
+    $('#tweets-container').append(parsedTweet);
+  });
+}
+
 // renders tweets in html
 const renderTweets = function(tweets) {
   for (let tweetData of tweets.reverse()) {
     const $tweet = parseTweet(tweetData);
-    $(()=>{
-      $('#tweets-container').append($tweet);
-    });
+    appendTweet($tweet);
   }
 };
-//loads and displays tweets
-const showCurrentTweets = function() {
-  $.ajax('/tweets', { method: 'GET'})
-    .then(function(tweets) {
-      renderTweets(tweets);
+
+const getTweets = function() {
+  let tweets;
+  $.ajax('/tweets', { method: 'GET', async: false})
+    .done(async function(data) { 
+      tweets =  data;
     });
+    return tweets;
 };
 
+//loads and displays tweets
+const showCurrentTweets = function() {
+  const tweets = getTweets();
+  renderTweets(tweets);
+}
 
+const appendHeadTweet = function() {
+  const tweet = getTweets().at(-1);
+  const $tweet = parseTweet(tweet);
+  prependTweet($tweet);
+};
 
 $(() => {
   $("form").submit(function(event) {
@@ -70,16 +92,12 @@ $(() => {
       if ($("#tweet-text").val().length <= 140) {
         //tweet is neither too long or too short ~~goldylocks~~
         const data = $(this).serialize();
+        $("#tweet-text").val("");
         $.ajax('/tweets', { method: 'POST', data})
           .done(() => { //after successful completion get the data, clear the existing tweets and then show the new tweets.
             setTimeout(() => {  //a small set timeout avoids a race condition not dealt with via promise chaining.
-              $.ajax('/tweets', { method: 'GET'})
-                .then(function(tweets) {
-                  $("#tweets-container").empty();
-                  renderTweets(tweets);
-                }, 200);
-            });
-            $("tweet-text").val("");
+              appendHeadTweet();
+            },100);
           });
       } else {
         //tweet is too long
