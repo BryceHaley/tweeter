@@ -68,7 +68,7 @@ const renderTweets = function(tweets) {
 const getTweets = function() {
   let tweets;
   $.ajax('/tweets', { method: 'GET', async: false})
-    .done(async function(data) {
+    .done(function(data) {
       tweets =  data;
     });
   return tweets;
