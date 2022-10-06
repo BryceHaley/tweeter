@@ -79,6 +79,7 @@ $(() => {
                   renderTweets(tweets);
                 }, 200);
             });
+            $("tweet-text").val("");
           });
       } else {
         //tweet is too long
