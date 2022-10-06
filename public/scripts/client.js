@@ -67,7 +67,7 @@ $(() => {
     $("#empty").slideUp("fast");
     $("#too_long").slideUp("fast");
     if ($("#tweet-text").val().length > 0) {
-      if ($("#tweet-text").val().length < 140) {
+      if ($("#tweet-text").val().length <= 140) {
         //tweet is neither too long or too short ~~goldylocks~~
         const data = $(this).serialize();
         $.ajax('/tweets', { method: 'POST', data})
