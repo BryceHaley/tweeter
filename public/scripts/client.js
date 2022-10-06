@@ -46,13 +46,13 @@ const prependTweet = function(parsedTweet) {
   $(()=>{
     $('#tweets-container').prepend(parsedTweet);
   });
-}
+};
 
 const appendTweet = function(parsedTweet) {
   $(()=>{
     $('#tweets-container').append(parsedTweet);
   });
-}
+};
 
 // renders tweets in html
 const renderTweets = function(tweets) {
@@ -65,17 +65,17 @@ const renderTweets = function(tweets) {
 const getTweets = function() {
   let tweets;
   $.ajax('/tweets', { method: 'GET', async: false})
-    .done(async function(data) { 
+    .done(async function(data) {
       tweets =  data;
     });
-    return tweets;
+  return tweets;
 };
 
 //loads and displays tweets
 const showCurrentTweets = function() {
   const tweets = getTweets();
   renderTweets(tweets);
-}
+};
 
 const appendHeadTweet = function() {
   const tweet = getTweets().at(-1);
